@@ -65,10 +65,13 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     Text('No transactions added yet!'),
+                    SizedBox(height: 40),
                     Image.asset(
+                      
                       'assets/images/waiting.png',
                       width: 300,
                       height: 300,
+                     
                     )
                   ],
                 ),

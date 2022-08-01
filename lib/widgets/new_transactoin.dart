@@ -45,34 +45,36 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(labelText: 'Title'),
-            ),
-            TextField(
-              controller: amountController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Amount'),
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Text(choosenDate==null? 'No date choosen!' : DateFormat.yMd().format(choosenDate!)),
-                TextButton(onPressed: _selectDate, child: Text('Choose Date'))
-              ],
-
-            ),
-            ElevatedButton(
-                onPressed: submitData, child: const Text('Add Transaction'))
-          ],
-          
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 2,
+        child: Container(
+          padding: EdgeInsets.only(top: 10, right: 10, left: 10, bottom: MediaQuery.of(context).viewInsets.bottom+10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(labelText: 'Title'),
+              ),
+              TextField(
+                controller: amountController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: 'Amount'),
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Text(choosenDate==null? 'No date choosen!' : 'Picked Date: ${DateFormat.yMd().format(choosenDate!)}'),
+                  TextButton(onPressed: _selectDate, child: Text('Choose Date'))
+                ],
+    
+              ),
+              ElevatedButton(
+                  onPressed: submitData, child: const Text('Add Transaction'))
+            ],
+            
+          ),
         ),
       ),
     );

@@ -14,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+ bool showChart = false;
   final List<Transaction> _userTransaction = [
     // Transaction(
     //     id: '1', title: 'T-Shirts', amount: 255.5, date: DateTime.now()),
@@ -66,6 +68,14 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            Text('Show Chart'),
+            Switch(value: showChart, onChanged: (val){
+              showChart = val;
+            })
+          ],),
           Chart(_recentTransactions),
           _userTransaction.isEmpty
               ? Center(

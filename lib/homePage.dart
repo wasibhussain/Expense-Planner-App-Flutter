@@ -26,12 +26,12 @@ class _HomePageState extends State<HomePage> {
     })).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(String txTitle, double txAmount, DateTime selectedDate) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
         title: txTitle,
         amount: txAmount,
-        date: DateTime.now());
+        date: selectedDate);
 
     setState(() {
       _userTransaction.add(newTx);
@@ -46,6 +46,12 @@ class _HomePageState extends State<HomePage> {
         });
   }
 
+  void _deleteTransaction(String id){
+  setState(() {
+  _userTransaction.removeWhere((tx) =>  tx.id==id);
+  });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,30 +64,32 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.add))
         ],
       ),
-      body: Column(children: [
-        Chart(_recentTransactions),
-        _userTransaction.isEmpty
-            ? Center(
-                child: Column(
+      body: SingleChildScrollView(
+        child: Column(children: [
+          Chart(_recentTransactions),
+          _userTransaction.isEmpty
+              ? Center(
+                  child: Column(
+                    children: [
+                      Text('No transactions added yet!'),
+                      SizedBox(height: 40),
+                      Image.asset(
+                        
+                        'assets/images/waiting.png',
+                        width: 300,
+                        height: 300,
+                       
+                      )
+                    ],
+                  ),
+                )
+              : Column(
                   children: [
-                    Text('No transactions added yet!'),
-                    SizedBox(height: 40),
-                    Image.asset(
-                      
-                      'assets/images/waiting.png',
-                      width: 300,
-                      height: 300,
-                     
-                    )
+                    TransactionList(_userTransaction, _deleteTransaction),
                   ],
                 ),
-              )
-            : Column(
-                children: [
-                  TransactionList(_userTransaction),
-                ],
-              ),
-      ]),
+        ]),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
